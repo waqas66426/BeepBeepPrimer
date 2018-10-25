@@ -1,0 +1,12 @@
+*.un~
+lib
+bin
+include
+*.egg-info
+.Python
+__pycache__
+variables.sh
+beepbeep.db
+.vscode
+share
+local
