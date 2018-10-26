@@ -9,6 +9,9 @@ __pycache__/
 # Config scripts
 *.sh
 
+# pycharm
+.idea/
+
 # Distribution / packaging
 .Python
 build/
