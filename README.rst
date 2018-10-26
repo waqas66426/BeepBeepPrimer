@@ -28,18 +28,16 @@ You can then run your application with::
     $ python monolith/app.py
     * Running on http://127.0.0.1:5000/
 
-Go to your browser at http://127.0.0.1:5000/ - you can log in with these
-credentials:
+How to create a new user
+------------------------
 
-- email: example@example.com
-- password: admin
-
-Once you are logged in, click on "Authorize Strava Access" -- this will
-perform an OAuth trip to Strava.
+1. Connect to Strava with the new user's account
+2. Browse http://127.0.0.1:5000/create_user and insert data.
+3. Login by browsing http://127.0.0.1:5000/
+4. Click on "Authorize Strava Access" -- this will perform an OAuth trip to Strava.
 
 Once authorized, you will be able to see your last 10 runs.
 But for this, we need to ask the Celery worker to fetch them.
-
 
 How to run the Celery worker
 ----------------------------
@@ -62,9 +60,4 @@ Once the runs are retrieved, you should see your last ten runs
 on http://127.0.0.1:5000
 
 
-How to create a new user
-------------------------
 
-1. Disconnect from Strava and re-connect with the new user's account
-2. Browse http://127.0.0.1:5000/create_user
-3. Insert data, confirm, authorize Strava.
