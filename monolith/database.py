@@ -1,6 +1,6 @@
 # encoding: utf8
 from werkzeug.security import generate_password_hash, check_password_hash
-import enum
+import random
 from sqlalchemy.orm import relationship
 from flask_sqlalchemy import SQLAlchemy
 
@@ -19,6 +19,7 @@ class User(db.Model):
     weight = db.Column(db.Numeric(4, 1))
     max_hr = db.Column(db.Integer)
     rest_hr = db.Column(db.Integer)
+    email_frequency = db.Column(db.Integer)
     vo2max = db.Column(db.Numeric(4, 2))
     is_active = db.Column(db.Boolean, default=True)
     is_admin = db.Column(db.Boolean, default=False)
@@ -31,6 +32,11 @@ class User(db.Model):
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
+
+    def set_email_frequency(self, freq):
+        # Random is added to hopefully receive relatively normal distribution to load balance across 8 celerry workers
+        # It would allow us to kinda equally load the workers when there are plenty of users.. #prematureOptimization
+        self.email_frequency = int(freq) + random.randint(-3,4)
 
     @property
     def is_authenticated(self):

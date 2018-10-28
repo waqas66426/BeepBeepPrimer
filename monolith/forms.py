@@ -22,3 +22,9 @@ class UserForm(FlaskForm):
 
     display = ['email', 'firstname', 'lastname', 'password',
                'age', 'weight', 'max_hr', 'rest_hr', 'vo2max']
+
+
+class ReportForm(FlaskForm):
+    frequency = f.SelectField('frequency', choices = [('15', '15s'), ('30', '30s'), ('60', '1m'), ('300', '5m'),
+                                                      ('3600', '1h'), ('28800', '8h'), ('86400', '24h')])
+    display = ['frequency']
