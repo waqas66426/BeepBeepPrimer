@@ -5,5 +5,9 @@ celery
 redis
 flask-wtf
 flask-sqlalchemy
+<<<<<<< HEAD
 stravalib
 Flask-Mail
+=======
+stravalib==0.9
+>>>>>>> 5251b044b468679e881e049665354bdbef12bf6d
