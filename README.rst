@@ -76,4 +76,14 @@ In case of other mail provider params in app.py need to be adjusted.After all th
 
 $ celery -A monolith.background beat -l info
 
-Than servicce is ready to start sending the mail reports! Just log in and select E-mail report from the homepge! 
+Than servicce is ready to start sending the mail reports! Just log in and select E-mail report from the homepge!
+
+
+How to run tests
+----------------
+
+For unit tests:
+
+1. Cd to your test file directory
+2. Run
+    $python -m unittest <test_class>
