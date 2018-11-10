@@ -27,7 +27,6 @@ def fetch_all_runs():
     runs_fetched = {}
 
     with app.app_context():
-        print("i am here in fetch runs")
         q = db.session.query(User)
         for user in q:
             if user.strava_token is None:
@@ -35,8 +34,7 @@ def fetch_all_runs():
             print('Fetching Strava for %s' % user.email)
             runs_fetched[user.id] = fetch_runs(user)
 
-    print( runs_fetched)
-    print("runs fetched:")
+
     return runs_fetched
 
 # Call send report every second
