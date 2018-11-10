@@ -44,7 +44,7 @@ class User(db.Model):
 
     def authenticate(self, password):
         print(password, " ", self.password)
-        #checked = self.password == password
+        # checked = self.password == password
         checked = check_password_hash(self.password, password)
         self._authenticated = checked
         return self._authenticated
@@ -67,5 +67,13 @@ class Run(db.Model):
     runner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     runner = relationship('User', foreign_keys='Run.runner_id')
 
+class Plan(db.Model):
+    __tablename__ = 'plan'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    runner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+    distance = db.Column(db.Float)
+    runner = relationship('User', foreign_keys='Plan.runner_id')
     print(id + name +strava_id +distance +strava_id +distance)
     print("database")

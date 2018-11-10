@@ -12,6 +12,25 @@
   {% if not current_user.strava_token %}
     <a href="{{strava_auth_url}}">Authorize Strava Access</a>
   {% else %}
+<<<<<<< HEAD
+    <h2>Your last 10 runs</h2>
+
+    {% for run in runs%}
+      <div>
+       <a href="{{url_for('home.run', id=run.id)}}">{{run.name}}</a>
+      </div>
+    {% endfor %}
+    <h2>Training objectives</h2>
+    <a href="{{url_for('plan.create_plan')}}">Create a plan</a>
+
+    {% for plan in plans %}
+      <div>
+       start: {{plan[0]}}, end: {{plan[1]}}, distance: {{plan[2]}}
+      </div>
+    {% endfor %}
+
+
+=======
     <h2 style="color:blue;">
 
       Your last 10 runs</h2>
@@ -77,6 +96,7 @@
 
 {% endfor %}
 
+>>>>>>> b7e79eaf6daea0263697d2b7257c81ecbcd63a44
   {% endif %}
 
 {% else %}
