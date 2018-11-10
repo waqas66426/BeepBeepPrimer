@@ -2,6 +2,8 @@ from flask import Blueprint, redirect, render_template, request
 from monolith.database import db, User
 from monolith.auth import admin_required
 from monolith.forms import UserForm
+from monolith.forms import LoginForm
+from flask_login import current_user
 
 
 users = Blueprint('users', __name__)
@@ -27,3 +29,11 @@ def create_user():
             return redirect('/users')
 
     return render_template('create_user.html', form=form)
+
+# 1.5
+@users.route('/delete_user', methods=['GET', 'POST'])
+def delete_user():
+    if current_user.is_authenticated:
+        db.session.delete(current_user)
+        db.session.commit()
+    return redirect('/')

@@ -24,6 +24,7 @@ def create_app():
 
 
 
+
     for bp in blueprints:
         app.register_blueprint(bp)
         bp.app = app

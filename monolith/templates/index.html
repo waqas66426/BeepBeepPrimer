@@ -1,11 +1,18 @@
-<h1>Runnerly</h1>
+<h1>BeepBeep</h1>
 
+<style>
+  table, th, td{
+  border:1px solid black;
+  }
+
+</style>
 {% if current_user.is_authenticated %}
-  Hi {{ current_user.email }}! <a href="/logout">Log out</a>
+  Hi {{ current_user.email }}! <a href="/report"> E-mail report</a> <a href="/delete_user"> Delete me!</a> <a href="/logout">Log out</a>
 
   {% if not current_user.strava_token %}
     <a href="{{strava_auth_url}}">Authorize Strava Access</a>
   {% else %}
+<<<<<<< HEAD
     <h2>Your last 10 runs</h2>
 
     {% for run in runs%}
@@ -23,6 +30,73 @@
     {% endfor %}
 
 
+=======
+    <h2 style="color:blue;">
+
+      Your last 10 runs</h2>
+
+        {% for run in runs%}
+      <div style="background-color:lightblue">
+      {{run.name}}
+      </div>
+
+
+
+{% endfor %}
+
+      <h3 style="color:brown;">
+        Running Statistics</h3>
+<table style="width:100%">
+        <tr>
+          <th>Run name</th>
+          <th>Date</th>
+          <th>Distance Coverd</th>
+          <th>Average Speed</th>
+          <th>Elapsed Time</th>
+        </tr>
+
+      {% for run in runs%}
+        <tr>
+          <td>{{run.name}}</td>
+          <td>{{run.start_date}}</td>
+          <td>{{run.distance/1609.36}} Miles </td>
+          <td>{{run.average_speed}} Miles/hr </td>
+          <td>{{run.elapsed_time/60}} Minutes</td>
+        </tr>
+
+
+
+
+{% endfor %}
+
+
+
+</table>
+
+      <table style="width:100%">
+        <tr>
+          <th>Run name</th>
+          <th>Date</th>
+          <th>Distance Coverd</th>
+          <th>Average Speed</th>
+          <th>Elapsed Time</th>
+        </tr>
+
+      {% for run in stat1%}
+        <tr>
+          <td>{{run.name}}</td>
+          <td>{{run.start_date}}</td>
+          <td>{{run.distance/1609.36}} Miles </td>
+          <td>{{run.average_speed}} Miles/hr </td>
+          <td>{{run.elapsed_time/60}} Minutes</td>
+        </tr>
+      <h4 style="color:rgb(64,0,0);">
+        you covered lot of distance. Best run so far you can do much better :)
+      </h4>
+
+{% endfor %}
+
+>>>>>>> b7e79eaf6daea0263697d2b7257c81ecbcd63a44
   {% endif %}
 
 {% else %}

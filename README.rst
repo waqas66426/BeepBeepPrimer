@@ -60,4 +60,30 @@ Once the runs are retrieved, you should see your last ten runs
 on http://127.0.0.1:5000
 
 
+How to run email reporting
+---------------------------
 
+First the email servis creditionals need to be exported:: 
+
+$ export EMAIL_ID=<ID>
+$ export EMAIL_PASS=<Password>
+
+In case Gmail is used all the internal params are hardcoded, just need to allow access to less secure apps on Gmail::
+
+https://myaccount.google.com/lesssecureapps?pli=1
+
+In case of other mail provider params in app.py need to be adjusted.After all that is done and celery is running as above you need to run celery beat in other terminal window by::
+
+$ celery -A monolith.background beat -l info
+
+Than servicce is ready to start sending the mail reports! Just log in and select E-mail report from the homepge!
+
+
+How to run tests
+----------------
+
+For unit tests:
+
+1. Cd to your test file directory
+2. Run
+    $python -m unittest <test_class>

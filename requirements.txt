@@ -1,7 +1,8 @@
 flask
 flask-login
+flask-testing
 celery
 redis
 flask-wtf
 flask-sqlalchemy
-stravalib
+stravalib==0.9
