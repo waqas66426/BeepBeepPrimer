@@ -12,12 +12,7 @@ def create_app():
     app.config['STRAVA_CLIENT_ID'] = os.environ['STRAVA_CLIENT_ID']
     app.config['STRAVA_CLIENT_SECRET'] = os.environ['STRAVA_CLIENT_SECRET']
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///beepbeep.db'
-    app.config['MAIL_SERVER']='smtp.gmail.com'
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USERNAME'] = os.environ['EMAIL_ID']
-    app.config['MAIL_PASSWORD'] = os.environ['EMAIL_PASS']
-    app.config['MAIL_USE_TLS'] = False
-    app.config['MAIL_USE_SSL'] = True
+
 
     for bp in blueprints:
         app.register_blueprint(bp)

@@ -4,5 +4,4 @@ celery
 redis
 flask-wtf
 flask-sqlalchemy
-stravalib
-Flask-Mail
+stravalib==0.9

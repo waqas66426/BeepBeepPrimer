@@ -66,3 +66,6 @@ class Run(db.Model):
     total_elevation_gain = db.Column(db.Float)
     runner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     runner = relationship('User', foreign_keys='Run.runner_id')
+
+    print(id + name +strava_id +distance +strava_id +distance)
+    print("database")

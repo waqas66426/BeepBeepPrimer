@@ -21,8 +21,35 @@ def _strava_auth_url(config):
 def index():
     if current_user is not None and hasattr(current_user, 'id'):
         runs = db.session.query(Run).filter(Run.runner_id == current_user.id)
+        stat1 = compare()
+        strava_auth_url = _strava_auth_url(home.app.config)
+        return render_template("index.html", runs=runs,stat1=stat1 ,strava_auth_url=strava_auth_url)
+
+
     else:
         runs = None
     strava_auth_url = _strava_auth_url(home.app.config)
-    return render_template("index.html", runs=runs,
-                           strava_auth_url=strava_auth_url)
+    return render_template("index.html", runs=runs,strava_auth_url=strava_auth_url)
+
+
+
+
+def compare():
+
+    runs = db.session.query(Run).filter(Run.runner_id == current_user.id)
+    best=0
+    run_id=0
+    if runs is None:
+        print("do nothing")
+    else:
+        for run in runs:
+            if run.distance > best:
+                best=run.distance
+                run_id=run.id
+
+        bwrd=db.session.query(Run).filter(Run.id == run_id)
+
+    return bwrd
+
+
+
