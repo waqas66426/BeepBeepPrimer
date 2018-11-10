@@ -28,7 +28,9 @@ def index():
         runs = None
     strava_auth_url = _strava_auth_url(home.app.config)
 
-    plans = db.session.query(Plan.start_date,Plan.end_date, Plan.distance).filter(Plan.runner_id == current_user.id)
+    plans = None
+    if current_user is not None and hasattr(current_user, 'id'):
+        plans = db.session.query(Plan.start_date,Plan.end_date, Plan.distance).filter(Plan.runner_id == current_user.id)
 
     return render_template("index.html", runs=runs, plans=plans,
                            strava_auth_url=strava_auth_url)
@@ -46,12 +48,7 @@ def run(id):
         values  = [run.distance, run.average_speed, run.elapsed_time, run.total_elevation_gain]
 
     return render_template("run.html",name=name,date=date,values=values,id=run.id)
-
-
-
-
-=======
-    return render_template("index.html", runs=runs,strava_auth_url=strava_auth_url)
+    # return render_template("index.html", runs=runs, strava_auth_url=strava_auth_url)
 
 
 
@@ -72,7 +69,6 @@ def compare():
         bwrd=db.session.query(Run).filter(Run.id == run_id)
 
     return bwrd
->>>>>>> b7e79eaf6daea0263697d2b7257c81ecbcd63a44
 
 
 

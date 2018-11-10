@@ -11,7 +11,7 @@ def create_report():
     form = ReportForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            current_user.set_email_frequency(form.frequency.data)
+            # current_user.set_email_frequency(form.frequency.data)
             db.session.add(current_user)
             db.session.commit()
             return redirect('/')

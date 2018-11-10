@@ -42,30 +42,30 @@ def fetch_all_runs():
 def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(schedule=1, sig=send_report.s(), name="test")
 
-@celery.task
-def send_report():
-    global _APP
-    # lazy init
-    if _APP is None:
-        from monolith.app import create_app
-        app = create_app()
-        db.init_app(app)
-    else:
-        app = _APP
-
-    with app.app_context():
-        mail=Mail(app)
-        q = db.session.query(User)
-        # Check all users if they requested report
-        for user in q:
-            if user.email_frequency is None:
-                continue
-            # check report freq against the current time - in case worker dies the report would be send with proper freq
-            # Opposed to when some counter would be used(the state of counyter would die with it)
-            if int(time.time()) % user.email_frequency == 0:
-                msg = Message('BeepBeep Email report', sender = os.environ['EMAIL_ID'], recipients = [user.email])
-                msg.body = "Report will be filled in as soon as 2.3 is done - it will be simply included here"
-                mail.send(msg)
+# @celery.task
+# def send_report():
+#     global _APP
+#     # lazy init
+#     if _APP is None:
+#         from monolith.app import create_app
+#         app = create_app()
+#         db.init_app(app)
+#     else:
+#         app = _APP
+#
+#     with app.app_context():
+#         mail=Mail(app)
+#         q = db.session.query(User)
+#         # Check all users if they requested report
+#         for user in q:
+#             if user.email_frequency is None:
+#                 continue
+#             # check report freq against the current time - in case worker dies the report would be send with proper freq
+#             # Opposed to when some counter would be used(the state of counyter would die with it)
+#             if int(time.time()) % user.email_frequency == 0:
+#                 msg = Message('BeepBeep Email report', sender = os.environ['EMAIL_ID'], recipients = [user.email])
+#                 msg.body = "Report will be filled in as soon as 2.3 is done - it will be simply included here"
+#                 mail.send(msg)
 
 def activity2run(user, activity):
     """Used by fetch_runs to convert a strava run into a DB entry.
