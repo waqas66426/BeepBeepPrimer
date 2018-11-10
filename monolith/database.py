@@ -38,7 +38,7 @@ class User(db.Model):
 
     def authenticate(self, password):
         print(password, " ", self.password)
-        #checked = self.password == password
+        # checked = self.password == password
         checked = check_password_hash(self.password, password)
         self._authenticated = checked
         return self._authenticated
@@ -60,3 +60,12 @@ class Run(db.Model):
     total_elevation_gain = db.Column(db.Float)
     runner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     runner = relationship('User', foreign_keys='Run.runner_id')
+
+class Plan(db.Model):
+    __tablename__ = 'plan'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    runner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+    distance = db.Column(db.Float)
+    runner = relationship('User', foreign_keys='Plan.runner_id')

@@ -7,11 +7,22 @@
     <a href="{{strava_auth_url}}">Authorize Strava Access</a>
   {% else %}
     <h2>Your last 10 runs</h2>
+
     {% for run in runs%}
       <div>
-      {{run.name}}
+       <a href="{{url_for('home.run', id=run.id)}}">{{run.name}}</a>
       </div>
     {% endfor %}
+    <h2>Training objectives</h2>
+    <a href="{{url_for('plan.create_plan')}}">Create a plan</a>
+
+    {% for plan in plans %}
+      <div>
+       start: {{plan[0]}}, end: {{plan[1]}}, distance: {{plan[2]}}
+      </div>
+    {% endfor %}
+
+
   {% endif %}
 
 {% else %}

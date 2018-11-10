@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <!--<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">-->
+  </head>
+  <h1>Last Previous Run</h1>
+  <body>
+
+   <div>
+
+     Run :       &nbsp           {{ id }} <br />
+     {% if not name %}
+     <!--<h1>Resource requested is unavailable!</h1>-->
+     {% else %}
+
+     Name : {{ name }}  <br/>
+     Date : {{ date }} <br/>
+     Distance : {{ values[0] }} <br/>
+     Average_Speed : {{ values[1] }} <br/>
+     Elapsed_Time  : {{ values[2] }} <br/>
+     Total_Elevation_Gain : {{ values[3] }} <br/>
+   </div>
+    {% endif %}
+  </body>
+</html>

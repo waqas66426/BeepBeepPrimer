@@ -22,3 +22,11 @@ class UserForm(FlaskForm):
 
     display = ['email', 'firstname', 'lastname', 'password',
                'age', 'weight', 'max_hr', 'rest_hr', 'vo2max']
+
+
+class PlanForm(FlaskForm):
+    start_date = f.DateField('Start date')
+    end_date = f.DateField('End date')
+    distance = f.IntegerField('Kilometers to run')
+
+    display = ['start_date', 'end_date', 'distance']
