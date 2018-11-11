@@ -19,21 +19,15 @@ def _strava_auth_url(config):
 def index():
     if current_user is not None and hasattr(current_user, 'id'):
         runs = db.session.query(Run).filter(Run.runner_id == current_user.id)
+        plans = db.session.query(Plan.start_date,Plan.end_date, Plan.distance).filter(Plan.runner_id == current_user.id)
         stat1 = compare()
-        strava_auth_url = _strava_auth_url(home.app.config)
-        return render_template("index.html", runs=runs,stat1=stat1 ,strava_auth_url=strava_auth_url)
-
-
+        left = distance_left()
+        plans = [plan+(left[i],) for i, plan in enumerate(plans)]
     else:
         runs = None
+        plans = None
     strava_auth_url = _strava_auth_url(home.app.config)
-
-    plans = None
-    if current_user is not None and hasattr(current_user, 'id'):
-        plans = db.session.query(Plan.start_date,Plan.end_date, Plan.distance).filter(Plan.runner_id == current_user.id)
-
-    return render_template("index.html", runs=runs, plans=plans,
-                           strava_auth_url=strava_auth_url)
+    return render_template("index.html", runs=runs, plans=plans, stat1=stat1, strava_auth_url=strava_auth_url)
 
 @home.route('/run/<id>', methods=['GET'])
 def run(id):
@@ -50,11 +44,7 @@ def run(id):
     return render_template("run.html",name=name,date=date,values=values,id=run.id)
     # return render_template("index.html", runs=runs, strava_auth_url=strava_auth_url)
 
-
-
-
 def compare():
-
     runs = db.session.query(Run).filter(Run.runner_id == current_user.id)
     best=0
     run_id=0
@@ -70,5 +60,17 @@ def compare():
 
     return bwrd
 
+def distance_left():
+    runs = db.session.query(Run).filter(Run.runner_id == current_user.id)
+    plans = db.session.query(Plan).filter(Plan.runner_id == current_user.id)
+    distances_left = ()
+    for plan in plans:
+        yet_toRun = plan.distance
+        for run in runs:
+            if run.start_date.date() >= plan.start_date and run.start_date.date() <= plan.end_date:
+                yet_toRun -= run.distance/1000
+        if yet_toRun < 0:
+            yet_toRun = 0
+        distances_left+=(yet_toRun,)
 
-
+    return distances_left
