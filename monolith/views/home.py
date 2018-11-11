@@ -23,11 +23,14 @@ def index():
         stat1 = compare()
         left = distance_left()
         plans = [plan+(left[i],) for i, plan in enumerate(plans)]
+        avg = average_speed()
     else:
         runs = None
         plans = None
+        avg = None
+        stat1 = None
     strava_auth_url = _strava_auth_url(home.app.config)
-    return render_template("index.html", runs=runs, plans=plans, stat1=stat1, strava_auth_url=strava_auth_url)
+    return render_template("index.html", runs=runs, plans=plans, stat1=stat1, avg=avg, strava_auth_url=strava_auth_url)
 
 @home.route('/run/<id>', methods=['GET'])
 def run(id):
@@ -74,3 +77,12 @@ def distance_left():
         distances_left+=(yet_toRun,)
 
     return distances_left
+
+def average_speed():
+    runs = db.session.query(Run).filter(Run.runner_id == current_user.id)
+    avg = 0
+    for run in runs:
+        avg += run.average_speed*3.6
+
+    return avg
+

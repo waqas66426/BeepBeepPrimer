@@ -14,10 +14,10 @@
 
      Name : {{ name }}  <br/>
      Date : {{ date }} <br/>
-     Distance : {{ values[0] }} <br/>
-     Average_Speed : {{ values[1] }} <br/>
-     Elapsed_Time  : {{ values[2] }} <br/>
-     Total_Elevation_Gain : {{ values[3] }} <br/>
+     Distance : {{ values[0]/1000}} Km <br/>
+     Average_Speed : {{ values[1]*3.6 }} Km/h<br/>
+     Elapsed_Time  : {{ values[2] }} minutes<br/>
+     Total_Elevation_Gain : {{ values[3] }} meters<br/>
    </div>
     {% endif %}
   </body>

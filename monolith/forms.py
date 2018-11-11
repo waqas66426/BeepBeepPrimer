@@ -24,8 +24,8 @@ class UserForm(FlaskForm):
                'age', 'weight', 'max_hr', 'rest_hr', 'vo2max']
 
 class PlanForm(FlaskForm):
-    start_date = f.DateField('Start date')
-    end_date = f.DateField('End date')
+    start_date = f.DateField('Start date (YYYY-mm-dd)')
+    end_date = f.DateField('End date (YYYY-mm-dd)')
     distance = f.IntegerField('Kilometers to run')
 
     display = ['start_date', 'end_date', 'distance']
