@@ -87,3 +87,16 @@ For unit tests:
 1. Cd to your test file directory
 2. Run
     $python -m unittest <test_class>
+    
+    
+    
+    
+===============================================================================================================================
+                                                            
+                                                            SECOND PART
+Tasks to implement:
+
+1. DB module
+2. One directory per microservice
+3. Define the API
+4. Add the datapump
